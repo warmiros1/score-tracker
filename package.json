@@ -1,0 +1,20 @@
+{
+  "name": "score-keeper",
+  "version": "0.0.1",
+  "description": "An app that can remember and modify the score of several players in a game that involves assigning points to players",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "score",
+    "keeper",
+    "points",
+    "tracker"
+  ],
+  "dependencies": {
+    "actions-on-google": "^1.0.0"
+  },
+  "author": "William Armiros",
+  "license": "MIT"
+}
