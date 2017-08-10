@@ -1,6 +1,6 @@
 {
-  "name": "score-keeper",
-  "version": "0.0.1",
+  "name": "score-tracker",
+  "version": "1.0.0",
   "description": "An app that can remember and modify the score of several players in a game that involves assigning points to players",
   "main": "index.js",
   "scripts": {
@@ -13,8 +13,9 @@
     "tracker"
   ],
   "dependencies": {
-    "actions-on-google": "^1.0.0"
+    "actions-on-google": "^1.0.0",
+    "firebase-admin": "^5.1.0"
   },
   "author": "William Armiros",
-  "license": "MIT"
+  "license": "Apache-2.0"
 }
