@@ -1,6 +1,6 @@
 {
   "name": "score-tracker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An app that can remember and modify the score of several players in a game that involves assigning points to players",
   "main": "index.js",
   "scripts": {
