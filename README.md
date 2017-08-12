@@ -1,7 +1,7 @@
-#Introduction
+# Introduction
 Score Tracker is an app for the Google Assistant platform. It uses Firebase's realtime database to store user's game data and persist it between conversations with the Assistant. You can invoke it on the Google Assistant mobile app or a Google Home by saying "OK Google, talk to Score Tracker."
 
-#Description
+# Description
 Can't remember your score after an intense round or long break? Want to keep track of a long-term series? Then Score Tracker is for you!
 
 Score Tracker records any number of players' scores for any game that requires keeping track of points. Score tracker could work with games like bags, table tennis, air hockey, or even trading card games. 
