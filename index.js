@@ -156,13 +156,8 @@ exports.scoreKeeper = (request, response) => {
 
   // Outputs speechoutput with voice, then always lists the current standing as text with default suggestion chips
   function askWithSuggestion (app, speechOutput) {
-    var hasScreen = app.hasSurfaceCapability(app.SurfaceCapabilities.SCREEN_OUTPUT);
-    if (!hasScreen) {
-      app.tell(speechOutput); //end conversation if on Google Home
-    } else {
-      app.data.speech = speechOutput; //store speechoutput for access after DB read
-      readFromDB(app, askWithSuggestionHelp); //otherwise create rich response with gameData for phone
-    }
+    app.data.speech = speechOutput; //store speechoutput for access after DB read
+    readFromDB(app, askWithSuggestionHelp); //otherwise create rich response with gameData for phone
   }
 
   function askWithSuggestionHelp (app, gameData) {
@@ -171,14 +166,19 @@ exports.scoreKeeper = (request, response) => {
     } else {
       var text = 'The only one in the game is ' + stringifyPlayers(gameData.players, true) + '. '; //more natural for 1 player
     }
-    var speechOutput = app.data.speech;
-    text += 'What would you like to do next?';
+    var speechOutput = app.data.speech + text;
+    var outputText = speechOutput + 'What would you like to do next?';
     app.data.speech = ''; //reset speech local data
 
-    app.ask(app.buildRichResponse() 
-      .addSimpleResponse({speech: speechOutput, displayText: speechOutput + text})
-      .addSuggestions(['Everyone gets 1 point', 'Everyone loses 1 point', 'Get help'])
-    );
+    var hasScreen = app.hasSurfaceCapability(app.SurfaceCapabilities.SCREEN_OUTPUT);
+    if (!hasScreen) {
+      app.tell(speechOutput); //end conversation if on Google Home
+    } else {
+      app.ask(app.buildRichResponse() 
+        .addSimpleResponse(outputText)
+        .addSuggestions(['Everyone gets 1 point', 'Everyone loses 1 point', 'Get help'])
+      );
+    }
   }
 
   // In case something goes wrong, don't use askWithSug so as to not end convo on Home
@@ -237,6 +237,7 @@ are not supported. To modify scores you can say for example: "add 3 points to To
       text += 'To get started, list the names of the players you want to add now!';
       app.ask(text); //case of no players in game, prompt user for names
     }
+
   }
 
   // Does not allow user to add duplicate players, then prompts for confirmation to add listed players
@@ -548,13 +549,13 @@ are not supported. To modify scores you can say for example: "add 3 points to To
     
     var speechOutput = 'Are you sure you want to end the current game? ';
     if (gameData.players.length > 1) {
-      var text = getRandomElem(gameIncludes) + stringifyPlayers(gameData.players, true) + '.';
+      speechOutput += getRandomElem(gameIncludes) + stringifyPlayers(gameData.players, true) + '.';
     } else {
-      var text = 'The only one in the game is ' + stringifyPlayers(gameData.players, true) + '.'; //more natural for 1 player
+      speechOutput += 'The only one in the game is ' + stringifyPlayers(gameData.players, true) + '.'; //more natural for 1 player
     }
 
     app.ask(app.buildRichResponse() 
-      .addSimpleResponse({speech: speechOutput, displayText: speechOutput + text})
+      .addSimpleResponse(speechOutput)
       .addSuggestions(['Yes', 'No'])
     );
   }
